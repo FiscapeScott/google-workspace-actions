@@ -1,0 +1,277 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Google Workspace API",
+    "description": "Interact with Gmail, Calendar, and Contacts using Google APIs through OpenAI Actions.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://gmail.googleapis.com"
+    }
+  ],
+  "paths": {
+    "/gmail/v1/users/me/messages": {
+      "get": {
+        "operationId": "getUserEmails",
+        "summary": "Fetch recent Gmail messages",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Gmail search query (e.g. 'from:someone')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxResults",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 5
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of Gmail messages",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gmail/v1/users/me/messages/send": {
+      "post": {
+        "operationId": "sendEmail",
+        "summary": "Send an email via Gmail",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "raw": {
+                    "type": "string",
+                    "description": "Base64-encoded RFC 5322 email"
+                  }
+                },
+                "required": ["raw"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gmail/v1/users/me/settings/sendAs": {
+      "get": {
+        "operationId": "getEmailSignature",
+        "summary": "Fetch Gmail signature",
+        "responses": {
+          "200": {
+            "description": "Signature data",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/calendar/v3/calendars/primary/events": {
+      "get": {
+        "operationId": "getCalendarEvents",
+        "summary": "Fetch upcoming calendar events",
+        "parameters": [
+          {
+            "name": "timeMin",
+            "in": "query",
+            "required": true,
+            "description": "ISO 8601 timestamp (e.g. '2025-07-06T00:00:00Z')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxResults",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 5
+            }
+          },
+          {
+            "name": "singleEvents",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "startTime"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of events",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createCalendarEvent",
+        "summary": "Create a new calendar event",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "summary": { "type": "string" },
+                  "start": {
+                    "type": "object",
+                    "properties": {
+                      "dateTime": { "type": "string" }
+                    },
+                    "required": ["dateTime"]
+                  },
+                  "end": {
+                    "type": "object",
+                    "properties": {
+                      "dateTime": { "type": "string" }
+                    },
+                    "required": ["dateTime"]
+                  },
+                  "attendees": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "email": { "type": "string" }
+                      },
+                      "required": ["email"]
+                    }
+                  }
+                },
+                "required": ["summary", "start", "end"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event created",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/people/v1/people/me/connections": {
+      "get": {
+        "operationId": "getContacts",
+        "summary": "Fetch user contacts",
+        "parameters": [
+          {
+            "name": "personFields",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "names,emailAddresses"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of contacts",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/people/v1/people:createContact": {
+      "post": {
+        "operationId": "createContact",
+        "summary": "Create a new contact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "names": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "givenName": { "type": "string" },
+                        "familyName": { "type": "string" }
+                      }
+                    }
+                  },
+                  "emailAddresses": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": { "type": "string" }
+                      }
+                    }
+                  }
+                },
+                "required": ["names", "emailAddresses"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contact created",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
