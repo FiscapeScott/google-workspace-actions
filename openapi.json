@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://gmail.googleapis.com"
+      "url": "https://www.googleapis.com"
     }
   ],
   "paths": {
@@ -39,7 +39,21 @@
             "description": "List of Gmail messages",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "messages": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "threadId": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -72,7 +86,13 @@
             "description": "Email sent",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "threadId": { "type": "string" }
+                  }
+                }
               }
             }
           }
@@ -88,7 +108,21 @@
             "description": "Signature data",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sendAs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "sendAsEmail": { "type": "string" },
+                          "signature": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -136,10 +170,35 @@
         ],
         "responses": {
           "200": {
-            "description": "List of events",
+            "description": "List of calendar events",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "summary": { "type": "string" },
+                          "start": {
+                            "type": "object",
+                            "properties": {
+                              "dateTime": { "type": "string" }
+                            }
+                          },
+                          "end": {
+                            "type": "object",
+                            "properties": {
+                              "dateTime": { "type": "string" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -191,7 +250,13 @@
             "description": "Event created",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "summary": { "type": "string" }
+                  }
+                }
               }
             }
           }
@@ -218,7 +283,37 @@
             "description": "List of contacts",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "connections": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "names": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "displayName": { "type": "string" }
+                              }
+                            }
+                          },
+                          "emailAddresses": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "value": { "type": "string" }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -266,7 +361,13 @@
             "description": "Contact created",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resourceName": { "type": "string" },
+                    "etag": { "type": "string" }
+                  }
+                }
               }
             }
           }
