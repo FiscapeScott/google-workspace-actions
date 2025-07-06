@@ -1,0 +1,27 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Google Workspace Assistant",
+  "name_for_model": "googleWorkspaceAssistant",
+  "description_for_human": "Read Gmail, manage your calendar, and contacts using Google APIs.",
+  "description_for_model": "Interact with the user's Gmail, Calendar, and Contacts using Google's APIs. Ensure authentication via Google OAuth.",
+  "auth": {
+    "type": "google_auth",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly",
+      "https://www.googleapis.com/auth/gmail.send",
+      "https://www.googleapis.com/auth/gmail.settings.basic",
+      "https://www.googleapis.com/auth/calendar.readonly",
+      "https://www.googleapis.com/auth/calendar",
+      "https://www.googleapis.com/auth/contacts.readonly",
+      "https://www.googleapis.com/auth/contacts"
+    ]
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://FiscapeScott.github.io/google-workspace-actions/openapi.json"
+  },
+  "logo_url": "https://YOUR_GITHUB_USERNAME.github.io/REPO_NAME/logo.png",
+  "contact_email": "you@example.com",
+  "legal_info_url": "https://YOUR_GITHUB_USERNAME.github.io/REPO_NAME/legal.html",
+  "instructions": "Use getUserEmails to fetch Gmail messages by search query. Use sendEmail to send base64-encoded raw emails. Use getEmailSignature to fetch the user's Gmail signature. Use getCalendarEvents to fetch upcoming calendar events starting from a date. Use createCalendarEvent to create a new calendar event. Use getContacts to fetch the user's Google Contacts. Use createContact to add a new contact. Always ensure the user is authenticated with Google before calling any API."
+}
