@@ -18,7 +18,7 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://FiscapeScott.github.com/google-workspace-actions/openapi.json"
+    "url": "https://fiscapescott.github.io/google-workspace-actions/openapi.json"
   },
   "contact_email": "you@example.com",
   "instructions": "Use getUserEmails to fetch Gmail messages by search query. Use sendEmail to send base64-encoded raw emails. Use getEmailSignature to fetch the user's Gmail signature. Use getCalendarEvents to fetch upcoming calendar events starting from a date. Use createCalendarEvent to create a new calendar event. Use getContacts to fetch the user's Google Contacts. Use createContact to add a new contact. Always ensure the user is authenticated with Google before calling any API."
