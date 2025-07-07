@@ -1,0 +1,20 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Google Calendar Assistant",
+  "name_for_model": "googleCalendarAssistant",
+  "description_for_human": "View and create calendar events using your Google Calendar.",
+  "description_for_model": "Use the getCalendarEvents and createCalendarEvent actions to interact with the user's calendar. Only run these actions after authentication using Google OAuth.",
+  "auth": {
+    "type": "google_auth",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.readonly",
+      "https://www.googleapis.com/auth/calendar"
+    ]
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://fiscapescott.github.io/google-workspace-actions/calendar/openapi.json"
+  },
+  "contact_email": "you@example.com",
+  "instructions": "Use getCalendarEvents to retrieve upcoming events, and createCalendarEvent to schedule new ones. Authenticate the user via Google OAuth first."
+}
