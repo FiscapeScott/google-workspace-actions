@@ -1,0 +1,149 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Google Calendar API",
+    "description": "View and create events using the Google Calendar API.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://www.googleapis.com"
+    }
+  ],
+  "paths": {
+    "/calendar/v3/calendars/primary/events": {
+      "get": {
+        "operationId": "getCalendarEvents",
+        "summary": "Fetch upcoming calendar events",
+        "parameters": [
+          {
+            "name": "timeMin",
+            "in": "query",
+            "required": true,
+            "description": "ISO 8601 timestamp (e.g. '2025-07-06T00:00:00Z')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxResults",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 5
+            }
+          },
+          {
+            "name": "singleEvents",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "startTime"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of calendar events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "summary": { "type": "string" },
+                          "start": {
+                            "type": "object",
+                            "properties": {
+                              "dateTime": { "type": "string" }
+                            }
+                          },
+                          "end": {
+                            "type": "object",
+                            "properties": {
+                              "dateTime": { "type": "string" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createCalendarEvent",
+        "summary": "Create a new calendar event",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "summary": { "type": "string" },
+                  "start": {
+                    "type": "object",
+                    "properties": {
+                      "dateTime": { "type": "string" }
+                    },
+                    "required": ["dateTime"]
+                  },
+                  "end": {
+                    "type": "object",
+                    "properties": {
+                      "dateTime": { "type": "string" }
+                    },
+                    "required": ["dateTime"]
+                  },
+                  "attendees": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "email": { "type": "string" }
+                      },
+                      "required": ["email"]
+                    }
+                  }
+                },
+                "required": ["summary", "start", "end"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "summary": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
